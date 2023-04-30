@@ -196,7 +196,7 @@ function jsonD(o)
     return HttpService:JSONDecode(o)
 end
 
-function Translate:Init(message, to, from)
+function Translate:Init(message, from, to)
     reqid+=10000
     from = from and Translate:getISOCode(from) or 'auto'
     to = to and Translate:getISOCode(to) or 'en'
