@@ -196,23 +196,14 @@ function jsonD(o)
     return HttpService:JSONDecode(o)
 end
 
-function Translate:Normal(str, to, from)
+function Translate:Init(message, to, from)
     reqid+=10000
     from = from and Translate:getISOCode(from) or 'auto'
     to = to and Translate:getISOCode(to) or 'en'
 
-    local data = {{str, from, to, true}, {nil}}
+    local data = {{message, from, to, true}, {nil}}
 
-    local freq = {
-        {
-            {
-                rpcidsTranslate,
-                jsonE(data),
-                nil,
-                "generic"
-            }
-        }
-    }
+    local freq = {{{rpcidsTranslate, jsonE(data), nil,"generic"}}}
 
     local url = executeURL..'?'..stringifyQuery{rpcids = rpcidsTranslate, ['f.sid'] = fsid, bl = bl, hl="en", _reqid = reqid-10000, rt = 'c'}
     local body = stringifyQuery{['f.req'] = jsonE(freq)}
@@ -222,37 +213,16 @@ function Translate:Normal(str, to, from)
     local body = jsonD(req.Body:match'%[.-%]\n')
     local translationData = jsonD(body[1][3])
     local result = {
-        text = "",
+        text = translationData[2][1][1][6][1][1],
         from = {
-            language = "",
-            text = ""
+            language = translationData[2][5][3],
+            text = translationData[2][5][1]
         },
-        raw = ""
+        raw = translationData
     }
     -- setclipboard(http:JSONEncode(translationData))
-    result.raw = translationData
-    result.text = translationData[2][1][1][6][1][1]
-
-    result.from.language = translationData[2][5][3]
-    result.from.text = translationData[2][5][1]
 
     return result
-end
-function Translate:From(message)
-    local translation = Translate:Normal(message, library.Lang)
-
-    local text
-    if translation.from.language ~= library.Lang then
-        text = translation.text
-    end
-
-    return {text, translation.from.language}
-end
-function Translate:To(message, target)
-    target = target:lower() 
-    local translation = Translate:Normal(message, target, "auto")
-
-    return translation.text
 end
 
 return Translate
