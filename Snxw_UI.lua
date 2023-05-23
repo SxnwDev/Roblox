@@ -1560,7 +1560,8 @@ do -- UI
             Parent =  UI.Notifications.List,
             Name = 'Roblox Studio Version',
             Value = 'This version is hosted in roblox studio so there may be some errors due to compatibility.',
-            Type = 1
+            Type = 1,
+            -- Color = Color3.fromRGB(255, 105, 97)
         })
 
         return setmetatable({
