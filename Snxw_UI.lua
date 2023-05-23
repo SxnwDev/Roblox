@@ -44,14 +44,14 @@ local Theme = {
         Background = Color3.fromRGB(18, 25, 33),
         Contrast = Color3.fromRGB(22, 30, 40),
         Accent = Color3.fromRGB(0, 105, 250),
-        TextColor = Color3.fromRGB(255, 255, 255),
+        TextColor = Color3.fromRGB(254, 254, 254),
         Grey = Color3.fromRGB(102, 110, 120)
     },
     Light = {
         Background = Color3.fromRGB(249, 249, 249),
         Contrast = Color3.fromRGB(230, 230, 230),
         Accent = Color3.fromRGB(0, 105, 250),
-        TextColor = Color3.new(0, 0, 0),
+        TextColor = Color3.fromRGB(1, 1, 1),
         Grey = Color3.fromRGB(100, 100, 100)
     }
 }
