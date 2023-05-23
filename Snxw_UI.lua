@@ -1556,6 +1556,13 @@ do -- UI
         })
         --#endregion
 
+        create('StringValue', {
+            Parent =  UI.Notifications.List,
+            Name = 'Roblox Studio Version',
+            Value = 'This version is hosted in roblox studio so there may be some errors due to compatibility.',
+            Type = 2
+        })
+
         return setmetatable({
 			Container = UI,
             PageContainer = {
