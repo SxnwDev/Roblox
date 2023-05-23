@@ -101,6 +101,7 @@ function create(className, properties, childrens)
         })
         ImageLoader.Visible = not object.IsLoaded
         object:GetPropertyChangedSignal('IsLoaded'):Connect(function()
+            print(object.IsLoaded)
             ImageLoader.Visible = not object.IsLoaded
         end)
     end
