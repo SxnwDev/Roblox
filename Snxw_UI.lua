@@ -17,7 +17,7 @@ local Library = {
 
     Settings = {
         Notifications = true,
-        Public = true,
+        Public = false,
 
         Lang = 'en', -- es
         DarkMode = true,
@@ -31,7 +31,7 @@ local Library = {
     },
     User = {
         IsPremium = true,
-        IsDeveloper = true
+        IsDeveloper = Player.Name == 'S_xnw' and true or false
     }
 }
 
