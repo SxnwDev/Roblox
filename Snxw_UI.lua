@@ -163,15 +163,18 @@ function create(className, properties, childrens)
                 Tween(frame, { BackgroundTransparency = 1 }, 0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, -1, true, 0)
             end
         })
+        local ChangingImage
         local function Loading()
             task.spawn(function()
                 ImageLoader.Visible = true
-                repeat task.wait() until object.IsLoaded
+                repeat task.wait() until object.IsLoaded or ChangingImage
+                ChangingImage = false
                 ImageLoader.Visible = false
             end)
         end
         Loading()
         object:GetPropertyChangedSignal('Image'):Connect(function()
+            ChangingImage = true
             Loading()
         end)
     end
