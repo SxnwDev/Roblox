@@ -2240,5 +2240,4 @@ do -- UI
     --#endregion
 end
 
-Library.new()
 return Library
