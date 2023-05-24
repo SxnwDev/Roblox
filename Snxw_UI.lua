@@ -858,7 +858,7 @@ do -- UI
                     Size = UDim2.new(0, 85, 0, 85),
                     Position = UDim2.new(0.5, 0, 0, 0),
                     AnchorPoint = Vector2.new(0.5, 0),
-                    Image = 'rbxthumb://type=AvatarHeadShot&id='  .. Player.UserId + 1 .. '&w=420&h=420',
+                    Image = 'rbxthumb://type=AvatarHeadShot&id='  .. Player.UserId .. '&w=420&h=420',
                     CornerRadius = UDim.new(1, 0),
                 }, {
                     (Library.User.IsPremium or Library.User.IsDeveloper) and create('Frame', {
