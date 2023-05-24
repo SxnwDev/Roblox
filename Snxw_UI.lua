@@ -166,7 +166,8 @@ function create(className, properties, childrens)
         local function Loading()
             task.spawn(function()
                 ImageLoader.Visible = true
-                repeat task.wait() until object.IsLoaded
+                -- repeat task.wait() until object.IsLoaded
+                game:GetService("ContentProvider"):PreloadAsync({ object.Image })
                 ImageLoader.Visible = false
             end)
         end
