@@ -162,11 +162,10 @@ function create(className, properties, childrens)
             CornerRadius = UDim.new(0, 3),
             Function = function(frame)
                 Tween(frame, { BackgroundTransparency = 1 }, 0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, -1, true, 0)
-                repeat task.wait() until frame.Parent and frame.Parent.IsLoaded
-                frame.Visible = false
             end
         })
-        ImageLoader.Visible = not object.IsLoaded
+        repeat task.wait() until frame.Parent and frame.Parent.IsLoaded
+        frame.Visible = false
         object:GetPropertyChangedSignal('IsLoaded'):Connect(function()
             print(object.IsLoaded)
             ImageLoader.Visible = not object.IsLoaded
