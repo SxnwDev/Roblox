@@ -84,29 +84,6 @@ function WaitForAttribute(Object, AttributeName, MaxTime)
 end
 function create(className, properties, childrens)
     local object = Instance.new(className)
-    if pcall(function()
-        return object.Image
-    end) then
-        local ImageLoader = create('Frame', {
-            Parent = object,
-            BackgroundColor3 = Theme[Library.Settings.DarkMode and 'Dark' or 'Light'].Accent,
-            Visible = not object.IsLoaded,
-            AnchorPoint = Vector2.new(0.5, 0.5),
-            Position = UDim2.new(0.5, 0, 0.5, 0),
-            Size = UDim2.new(0, 10, 0, 10),
-            CornerRadius = UDim.new(0, 3),
-            Function = function(frame)
-                Tween(frame, { BackgroundTransparency = 1 }, 0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, -1, true, 0)
-                repeat task.wait() until frame.Parent and frame.Parent.IsLoaded
-                frame.Visible = false
-            end
-        })
-        ImageLoader.Visible = not object.IsLoaded
-        object:GetPropertyChangedSignal('IsLoaded'):Connect(function()
-            print(object.IsLoaded)
-            ImageLoader.Visible = not object.IsLoaded
-        end)
-    end
     for i, v in pairs(properties or {}) do
         if typeof(v) == 'Color3' then
             instancesColor3[i] = instancesColor3[i] or {}
@@ -170,6 +147,29 @@ function create(className, properties, childrens)
             if module:IsA('Instance') then
                 module.Parent = object
             end
+        end)
+    end
+    if pcall(function()
+        return object.Image
+    end) then
+        local ImageLoader = create('Frame', {
+            Parent = object,
+            BackgroundColor3 = Theme[Library.Settings.DarkMode and 'Dark' or 'Light'].Accent,
+            Visible = not object.IsLoaded,
+            AnchorPoint = Vector2.new(0.5, 0.5),
+            Position = UDim2.new(0.5, 0, 0.5, 0),
+            Size = UDim2.new(0, 10, 0, 10),
+            CornerRadius = UDim.new(0, 3),
+            Function = function(frame)
+                Tween(frame, { BackgroundTransparency = 1 }, 0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, -1, true, 0)
+                repeat task.wait() until frame.Parent and frame.Parent.IsLoaded
+                frame.Visible = false
+            end
+        })
+        ImageLoader.Visible = not object.IsLoaded
+        object:GetPropertyChangedSignal('IsLoaded'):Connect(function()
+            print(object.IsLoaded)
+            ImageLoader.Visible = not object.IsLoaded
         end)
     end
     return object
