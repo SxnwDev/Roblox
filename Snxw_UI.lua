@@ -155,7 +155,6 @@ function create(className, properties, childrens)
         local ImageLoader = create('Frame', {
             Parent = object,
             BackgroundColor3 = Theme[Library.Settings.DarkMode and 'Dark' or 'Light'].Accent,
-            Visible = not object.IsLoaded,
             AnchorPoint = Vector2.new(0.5, 0.5),
             Position = UDim2.new(0.5, 0, 0.5, 0),
             Size = UDim2.new(0, 10, 0, 10),
@@ -164,8 +163,16 @@ function create(className, properties, childrens)
                 Tween(frame, { BackgroundTransparency = 1 }, 0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, -1, true, 0)
             end
         })
-        object:GetPropertyChangedSignal('IsLoaded'):Connect(function()
-            ImageLoader.Visible = not object.IsLoaded
+        local function Loading()
+            task.spawn(function()
+                ImageLoader.Visible = true
+                repeat task.wait() until object.IsLoaded
+                ImageLoader.Visible = false
+            end)
+        end
+        Loading()
+        object:GetPropertyChangedSignal('Image'):Connect(function()
+            Loading()
         end)
     end
     return object
@@ -2233,4 +2240,5 @@ do -- UI
     --#endregion
 end
 
+Library.new()
 return Library
